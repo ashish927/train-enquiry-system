@@ -1,0 +1,8 @@
+camel:
+  component:
+    servlet:
+      mapping:
+        contextPath: /gatewaygroup/api/*
+trains:
+  data:
+    uri: ${TRAINS_DATA_URI:http://202.131.103.151:9145/train-locations.json}
