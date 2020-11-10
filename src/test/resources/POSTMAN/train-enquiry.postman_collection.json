@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "51276771-aa42-494e-b8a8-49ca6f6c3fd4",
+		"name": "train-enquiry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/gatewaygroup/api/trains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/gatewaygroup/api/trains",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gatewaygroup",
+						"api",
+						"trains"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
