@@ -1,6 +1,8 @@
 package com.gatewaygroup.trainenquiry.route;
 
+import com.gatewaygroup.trainenquiry.exception.ExceptionHandler;
 import com.gatewaygroup.trainenquiry.service.TrainService;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -30,6 +32,13 @@ public class WebRoute extends RouteBuilder {
                 .bean(TrainService.class, "getTrains")
                 .errorHandler(defaultErrorHandler())
                 .endRest();
+
+        onException(Throwable.class)
+                .handled(true)
+                .log(LoggingLevel.ERROR, "Route faild due to :"+ simple("${exception.message}"))
+                .bean(ExceptionHandler.class, "prepareResponseBody(${exchange}, ${exception})")
+                .marshal().json(JsonLibrary.Jackson)
+                .end();
 
     }
 
