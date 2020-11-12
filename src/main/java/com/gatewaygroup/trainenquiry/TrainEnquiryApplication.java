@@ -24,6 +24,7 @@ public class TrainEnquiryApplication {
         pc.setLocation("classpath:application.yml");
         context.addRoutes(new HttpRoute());
         context.getTypeConverterRegistry().addTypeConverters(new ResponseConverter());
+        context.setTracing(true);
         context.setDebugging(true);
         context.setStreamCaching(true);
         context.start();
