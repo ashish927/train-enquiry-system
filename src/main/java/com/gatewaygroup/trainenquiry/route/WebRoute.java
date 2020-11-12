@@ -35,7 +35,7 @@ public class WebRoute extends RouteBuilder {
 
         onException(Throwable.class)
                 .handled(true)
-                .log(LoggingLevel.ERROR, "Route faild due to :"+ simple("${exception.message}"))
+                .log(LoggingLevel.ERROR, "Route failed due to :"+ simple("${exception.message}"))
                 .bean(ExceptionHandler.class, "prepareResponseBody(${exchange}, ${exception})")
                 .marshal().json(JsonLibrary.Jackson)
                 .end();

@@ -1,13 +1,12 @@
 package com.gatewaygroup.trainenquiry.route;
 
-import com.gatewaygroup.trainenquiry.aggregation.TrainsDataAggregationStrategies;
+import com.gatewaygroup.trainenquiry.aggregation.TrainsDataAggregation;
+import com.gatewaygroup.trainenquiry.model.OpenCageResponse;
 import com.gatewaygroup.trainenquiry.model.Trains;
 import com.gatewaygroup.trainenquiry.processor.OpenCageRequestProcessor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class HttpRoute extends RouteBuilder {
@@ -22,10 +21,11 @@ public class HttpRoute extends RouteBuilder {
                 .convertBodyTo(Trains[].class)
                 .marshal().json(JsonLibrary.Jackson)
                 .log("Trains Response : ${body}")
-                .enrich("direct:opencage", new TrainsDataAggregationStrategies())
+                .enrich("direct:opencage", new TrainsDataAggregation())
                 .marshal().json(JsonLibrary.Jackson)
-                .log("${body}");
-        ;
+                .log("${body}")
+                .end();
+
 
         from("direct:opencage")
                 .process(new OpenCageRequestProcessor())
@@ -33,7 +33,8 @@ public class HttpRoute extends RouteBuilder {
                 .to("log:DEBUG?showBody=true&showHeaders=true")
                 .toD("{{opencage-api-uri}}&q=${in.header.lng}%2C${in.header.lat}")
                 .log("Opencage Respnse: ${body}")
-                .unmarshal().json(JsonLibrary.Jackson, Map.class);
+                .unmarshal().json(JsonLibrary.Jackson, OpenCageResponse.class)
+                .end();
 
     }
 }

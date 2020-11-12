@@ -13,20 +13,20 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class TrainEnquiryApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TrainEnquiryApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TrainEnquiryApplication.class, args);
+    }
 
-	@Bean
-	ProducerTemplate producerTemplate() throws Exception {
-		CamelContext context = new DefaultCamelContext();
-		PropertiesComponent pc = context.getPropertiesComponent();
-		pc.setLocation("classpath:application.yml");
-		context.addRoutes(new HttpRoute());
-		context.getTypeConverterRegistry().addTypeConverters(new ResponseConverter());
-		context.setDebugging(true);
-		context.setStreamCaching(true);
-		context.start();
-		return context.createProducerTemplate();
-	}
+    @Bean("HttpRouteBean")
+    ProducerTemplate producerTemplate() throws Exception {
+        CamelContext context = new DefaultCamelContext();
+        PropertiesComponent pc = context.getPropertiesComponent();
+        pc.setLocation("classpath:application.yml");
+        context.addRoutes(new HttpRoute());
+        context.getTypeConverterRegistry().addTypeConverters(new ResponseConverter());
+        context.setDebugging(true);
+        context.setStreamCaching(true);
+        context.start();
+        return context.createProducerTemplate();
+    }
 }
