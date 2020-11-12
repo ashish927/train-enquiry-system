@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gatewaygroup.trainenquiry.model.Trains;
 import org.apache.camel.Converter;
 import org.apache.camel.TypeConverters;
+import org.apache.camel.converter.stream.CachedOutputStream;
 import org.apache.camel.converter.stream.InputStreamCache;
 
 import java.io.IOException;
@@ -14,6 +15,15 @@ public class ResponseConverter implements TypeConverters {
     public Trains[] inputStreamCacheToCityMap(InputStreamCache source) {
         try {
             return new ObjectMapper().readValue(source.readAllBytes(), Trains[].class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Converter
+    public Trains[] cachedOutputStreamToCityMap(CachedOutputStream source) {
+        try {
+            return new ObjectMapper().readValue(source.getInputStream().readAllBytes(), Trains[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -6,6 +6,7 @@ import com.gatewaygroup.trainenquiry.route.HttpRoute;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.spi.PropertiesComponent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,29 +18,24 @@ import java.util.Map;
 @Service
 public class TrainService {
 
-    @Value("${trains.data.uri}")
-    private String uri;
-
     ProducerTemplate producerTemplate;
 
     public TrainService() throws Exception {
         CamelContext context = new DefaultCamelContext();
+        PropertiesComponent pc = context.getPropertiesComponent();
+        pc.setLocation("classpath:application.yml");
         HttpRoute httpRoute = new HttpRoute();
         context.addRoutes(httpRoute);
         context.getTypeConverterRegistry().addTypeConverters(new ResponseConverter());
         context.setDebugging(true);
+        context.setStreamCaching(true);
         context.start();
         this.producerTemplate = context.createProducerTemplate();
 
     }
-    public ResponseEntity<Trains[]> getTrains(){
-        Trains[] result = producerTemplate.requestBodyAndHeaders("direct:httpRoute", null,getHeaders(), Trains[].class);
+    public ResponseEntity getTrains(){
+        String result = producerTemplate.requestBodyAndHeaders("direct:httpRoute", null,null, String.class);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    private Map<String, Object> getHeaders() {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("uri", uri);
-        return headers;
-    }
 }

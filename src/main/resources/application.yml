@@ -3,6 +3,10 @@ camel:
     servlet:
       mapping:
         contextPath: /gatewaygroup/api/*
-trains:
-  data:
-    uri: ${TRAINS_DATA_URI:http://202.131.103.151:9145/train-locations.json}
+
+trains-data-uri: http://202.131.103.151:9145/train-locations.json
+
+opencage-api-uri: https://api.opencagedata.com/geocode/v1/json?key=151f65462e4e423e9ac4515f86b03ca5
+
+
+
