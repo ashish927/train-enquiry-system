@@ -1,6 +1,7 @@
 package com.gatewaygroup.trainenquiry.service;
 
 import com.gatewaygroup.trainenquiry.model.TrainsDetailsResponse;
+import org.apache.camel.Handler;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,7 @@ public class TrainService {
     @Qualifier("HttpRouteBean")
     ProducerTemplate producerTemplate;
 
+    @Handler
     public ResponseEntity<TrainsDetailsResponse> getTrainsDetails() {
         TrainsDetailsResponse result = producerTemplate.requestBodyAndHeaders("direct:httpRoute", null, null, TrainsDetailsResponse.class);
         return new ResponseEntity<>(result, HttpStatus.OK);

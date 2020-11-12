@@ -6,6 +6,7 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,8 +29,9 @@ public class WebRoute extends RouteBuilder {
                 .produces("application/json")
 
                 .get().description("List of trains")
+                .outType(ResponseEntity.class)
                 .route().routeId("get-trains-details")
-                .bean(TrainService.class, "getTrainsDetails")
+                .bean(TrainService.class)
                 .errorHandler(defaultErrorHandler())
                 .endRest();
 
