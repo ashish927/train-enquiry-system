@@ -4,7 +4,7 @@ import com.gatewaygroup.trainenquiry.model.Trains;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
-public class OpenCageProcessor implements Processor {
+public class OpenCageRequestProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         Trains [] trains = exchange.getMessage().getBody(Trains[].class);

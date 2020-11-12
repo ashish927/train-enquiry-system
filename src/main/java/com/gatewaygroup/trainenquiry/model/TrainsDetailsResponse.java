@@ -2,7 +2,7 @@ package com.gatewaygroup.trainenquiry.model;
 
 public class TrainsDetailsResponse {
     private Trains trainDetails;
-    private String address;
+    private String currentLocation;
 
     public Trains getTrainDetails() {
         return trainDetails;
@@ -12,11 +12,11 @@ public class TrainsDetailsResponse {
         this.trainDetails = trainDetails;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCurrentLocation() {
+        return currentLocation;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }

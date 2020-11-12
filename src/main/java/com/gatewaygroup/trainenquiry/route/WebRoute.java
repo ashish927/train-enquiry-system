@@ -29,7 +29,7 @@ public class WebRoute extends RouteBuilder {
 
                 .get().description("List of trains")
                 .route().routeId("get-trains-details")
-                .bean(TrainService.class, "getTrains")
+                .bean(TrainService.class, "getTrainsDetails")
                 .errorHandler(defaultErrorHandler())
                 .endRest();
 

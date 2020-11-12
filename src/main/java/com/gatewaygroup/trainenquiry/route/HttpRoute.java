@@ -2,7 +2,7 @@ package com.gatewaygroup.trainenquiry.route;
 
 import com.gatewaygroup.trainenquiry.aggregation.TrainsDataAggregationStrategies;
 import com.gatewaygroup.trainenquiry.model.Trains;
-import com.gatewaygroup.trainenquiry.processor.OpenCageProcessor;
+import com.gatewaygroup.trainenquiry.processor.OpenCageRequestProcessor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class HttpRoute extends RouteBuilder {
         ;
 
         from("direct:opencage")
-                .process(new OpenCageProcessor())
+                .process(new OpenCageRequestProcessor())
                 .log("URI: {{opencage-api-uri}}&q=${in.header.lng}+${in.header.lat}")
                 .to("log:DEBUG?showBody=true&showHeaders=true")
                 .toD("{{opencage-api-uri}}&q=${in.header.lng}%2C${in.header.lat}")
