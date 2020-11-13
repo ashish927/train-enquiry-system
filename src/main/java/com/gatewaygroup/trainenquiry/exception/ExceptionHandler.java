@@ -26,7 +26,6 @@ public class ExceptionHandler implements Processor {
     }
 
 
-
     @Override
     public void process(Exchange exchange) throws Exception {
         Throwable e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);

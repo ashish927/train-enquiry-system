@@ -9,7 +9,24 @@
 			"name": "localhost:8080/gatewaygroup/api/trains",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "SHIRO_SECURITY_USERNAME",
+						"value": "gatewaygroup",
+						"type": "text"
+					},
+					{
+						"key": "SHIRO_SECURITY_PASSWORD",
+						"value": "trains@123",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/gatewaygroup/api/trains",
 					"host": [
@@ -21,7 +38,8 @@
 						"api",
 						"trains"
 					]
-				}
+				},
+				"description": "Get trains details with current location"
 			},
 			"response": []
 		}
