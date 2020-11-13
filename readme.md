@@ -18,9 +18,34 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ```shell
 mvn spring-boot:run
 ```
-
-## API-DOC
-http://localhost:8080/gatewaygroup/api/api-doc
+## Endpoint
+````
+Method: GET
+URI: localhost:8080/gatewaygroup/api/trains
+REQUIRED HEADERS: SHIRO_SECURITY_USERNAME = gatewaygroup
+                  SHIRO_SECURITY_PASSWORD = trains@123
+SAMPLE RESPONSE: {
+                     "headers": {},
+                     "body": {
+                         "trainDetails": {
+                             "trainNumber": 3,
+                             "departureDate": "2020-08-25",
+                             "timestamp": "2020-08-25T09:59:18.000Z",
+                             "location": {
+                                 "type": "Point",
+                                 "coordinates": [
+                                     28.823561,
+                                     61.217463
+                                 ]
+                             },
+                             "speed": 74
+                         },
+                         "currentLocation": "Ratavallinkaari 9, 55800 Imatra, Finland"
+                     },
+                     "statusCode": "OK",
+                     "statusCodeValue": 200
+                 }
+````
 
 ## Postman collection
 src/test/resources/postman/train-enquiry.postman_collection.json
